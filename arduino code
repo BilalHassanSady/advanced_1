@@ -1,0 +1,27 @@
+#include <Stepper.h>
+
+const int stepsPerRevolution = 200;
+
+Stepper stepper(stepsPerRevolution,8,9,10,11);
+
+const int res1 = A0;
+const int res2 = A1;
+int val_spe;
+int val_mov;
+void setup() {
+
+}
+void loop() {
+  val_spe=analogRead(res1);
+  val_mov=analogRead(res2);
+  val_spe = map(val_spe,0,1023,0,100);
+  if(val_spe > 0){
+  stepper.setSpeed(val_spe);
+  }
+  if(val_mov > 600){
+  stepper.step(val_mov); 
+  }
+  if(val_mov < 600){
+  stepper.step(-val_mov);
+  }
+}
